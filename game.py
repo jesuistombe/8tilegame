@@ -4,7 +4,7 @@ from random import shuffle
 
 BORDERCOLOR = (255, 0, 0)
 BACKGROUNDCOLOR = (0, 0, 0)
-EMPTYIMAGETILE = 0
+EMPTYIMAGETILE = 0 # which tile of the original image should be empty/dark
 BORDERWIDTH = 5
 
 def drawBorderAroundTile(screen, tile, remove=False):
@@ -143,9 +143,6 @@ def main():
         elif tileTwo == currentEmptyTile:
             screen.blit(background, originTiles[tileOne], imageTiles[imgTileTwo])
             screen.blit(img, originTiles[tileTwo], imageTiles[imgTileOne])
-        else:
-            screen.blit(img, originTiles[tileOne], imageTiles[imgTileTwo])
-            screen.blit(img, originTiles[tileTwo], imageTiles[imgTileOne])
         currentImageTiles[tileOne], currentImageTiles[tileTwo] = currentImageTiles[tileTwo], currentImageTiles[tileOne]
 
     # define a variable to control the main loop
@@ -186,7 +183,7 @@ def main():
                 elif (event.key == pygame.K_DOWN):
                     neighborTile = getLowerNeighborTile(currentSelectedTile)
 
-                if neighborTile == -1:
+                if neighborTile == -1 or neighborTile != currentEmptyTile:
                     continue
 
                 swapTiles(currentSelectedTile, neighborTile)
